@@ -27,7 +27,7 @@ public class ClientService {
           if (client.getIdClient()== null) {
             return ClientRepo.save(client);
         } else {
-            Optional<Client> libaux = ClientRepo.findById(client.getIdClient());
+            Optional<Client> libaux = ClientRepo.getById(client.getIdClient());
             if (libaux.isEmpty()) {
                 return ClientRepo.save(client);
             } else {
@@ -37,12 +37,12 @@ public class ClientService {
     }
 
     public List<Client> buscarTodo() {
-        return (List<Client>) ClientRepo.findAll();
+        return (List<Client>) ClientRepo.getAll();
     }
 
     public Client update(Client c) {
         if (c.getIdClient()!= null) {
-            Optional<Client> g = ClientRepo.findById(c.getIdClient());
+            Optional<Client> g = ClientRepo.getById(c.getIdClient());
             if (!g.isEmpty()) {
                 if (c.getAge() != null) {
                     g.get().setAge(c.getAge());
@@ -69,9 +69,9 @@ public class ClientService {
     }
 
     public boolean delete(Integer c) {
-        Optional<Client> g = ClientRepo.findById(c);
+        Optional<Client> g = ClientRepo.getById(c);
         if (!g.isEmpty()) {
-            ClientRepo.deleteById(g.get().getIdClient());
+            ClientRepo.delete(g.get());
             return true;
         }
         return false;

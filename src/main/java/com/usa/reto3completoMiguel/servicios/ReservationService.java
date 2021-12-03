@@ -28,7 +28,7 @@ public class ReservationService {
         if (Reservation.getIdReservation() == null) {
             return ReservationRepo.save(Reservation);
         } else {
-            Optional<Reservation> libaux = ReservationRepo.findById(Reservation.getIdReservation());
+            Optional<Reservation> libaux = ReservationRepo.getById(Reservation.getIdReservation());
             if (libaux.isEmpty()) {
                 return ReservationRepo.save(Reservation);
             } else {
@@ -38,12 +38,12 @@ public class ReservationService {
     }
 
     public List<Reservation> buscarTodo() {
-        return (List<Reservation>) ReservationRepo.findAll();
+        return (List<Reservation>) ReservationRepo.getAll();
     }
 
     public Reservation update(Reservation c) {
         if (c.getIdReservation() != null) {
-            Optional<Reservation> g = ReservationRepo.findById(c.getIdReservation());
+            Optional<Reservation> g = ReservationRepo.getById(c.getIdReservation());
             if (!g.isEmpty()) {
 
                 if (c.getClient() != null) {
@@ -72,9 +72,9 @@ public class ReservationService {
     }
 
     public boolean delete(Integer c) {
-        Optional<Reservation> g = ReservationRepo.findById(c);
+        Optional<Reservation> g = ReservationRepo.getById(c);
         if (!g.isEmpty()) {
-            ReservationRepo.deleteById(g.get().getIdReservation());
+            ReservationRepo.delete(g.get());
             return true;
         }
         return false;

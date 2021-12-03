@@ -26,7 +26,7 @@ public class MessageService {
         if (message.getIdMessage()== null) {
             return messageRepo.save(message);
         } else {
-            Optional<Message> libaux = messageRepo.findById(message.getIdMessage());
+            Optional<Message> libaux = messageRepo.getById(message.getIdMessage());
             if (libaux.isEmpty()) {
                 return messageRepo.save(message);
             } else {
@@ -36,12 +36,12 @@ public class MessageService {
     }
 
     public List<Message> buscarTodo() {
-        return (List<Message>) messageRepo.findAll();
+        return (List<Message>) messageRepo.getAll();
     }
 
     public Message update(Message c) {
         if (c.getIdMessage()!= null) {
-            Optional<Message> g = messageRepo.findById(c.getIdMessage());
+            Optional<Message> g = messageRepo.getById(c.getIdMessage());
             if (!g.isEmpty()) {
 
                 if (c.getClient()!= null) {
@@ -60,9 +60,9 @@ public class MessageService {
     }
 
     public boolean delete(Integer c) {
-        Optional<Message> g = messageRepo.findById(c);
+        Optional<Message> g = messageRepo.getById(c);
         if (!g.isEmpty()) {
-            messageRepo.deleteById(g.get().getIdMessage());
+            messageRepo.delete(g.get());
             return true;
         }
         return false;

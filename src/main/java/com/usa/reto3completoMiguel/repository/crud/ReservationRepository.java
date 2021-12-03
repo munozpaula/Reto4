@@ -5,7 +5,11 @@
  */
 package com.usa.reto3completoMiguel.repository.crud;
 
+import com.usa.reto3completoMiguel.interfaz.ReservationInterfaz;
 import com.usa.reto3completoMiguel.modelentidades.Reservation;
+import java.util.List;
+import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +18,25 @@ import org.springframework.stereotype.Repository;
  * @author USER
  */
 @Repository
-public interface ReservationRepository extends CrudRepository<Reservation, Integer> {
+public class ReservationRepository {
+    
+     @Autowired
+    private ReservationInterfaz repo; 
+    
+    public List<Reservation> getAll(){
+        return (List<Reservation>) repo.findAll();
+    }
+    
+    public Optional<Reservation> getById(int id){
+        return repo.findById(id);
+    }
+    
+    public Reservation save (Reservation reservation){
+        return repo.save(reservation);
+    }
+    
+    public void delete(Reservation reservation){
+        repo.delete(reservation);
+    }
     
 }

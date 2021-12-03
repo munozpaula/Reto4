@@ -28,7 +28,7 @@ public class libService {
         if (lib.getId() == null) {
             return libRepo.save(lib);
         } else {
-            Optional<Lib> libaux = libRepo.findById(lib.getId());
+            Optional<Lib> libaux = libRepo.getById(lib.getId());
             if (libaux.isEmpty()) {
                 return libRepo.save(lib);
             } else {
@@ -38,12 +38,12 @@ public class libService {
     }
 
     public List<Lib> buscarTodo() {
-        return (List<Lib>) libRepo.findAll();
+        return (List<Lib>) libRepo.getAll();
     }
 
     public Lib update(Lib c) {
         if (c.getId() != null) {
-            Optional<Lib> g = libRepo.findById(c.getId());
+            Optional<Lib> g = libRepo.getById(c.getId());
             if (!g.isEmpty()) {
 
                 if (c.getCapacity() != null) {
@@ -74,9 +74,9 @@ public class libService {
     }
 
     public boolean delete(Integer c) {
-        Optional<Lib> g = libRepo.findById(c);
+        Optional<Lib> g = libRepo.getById(c);
         if (!g.isEmpty()) {
-            libRepo.deleteById(g.get().getId());
+            libRepo.delete(g.get());
             return true;
         }
         return false;
